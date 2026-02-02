@@ -28,14 +28,9 @@ public sealed class App : Application
                 logger);
             var syncService = new SyncService(dbContextFactory, apiClient, settingsService, logger);
             var aggregationService = new AggregationService(dbContextFactory, logger);
-            var exportService = new ExportService(dbContextFactory, settingsService, logger);
-            var schedulerService = new SchedulerService(settingsService, syncService, logger);
-
             var mainViewModel = new MainWindowViewModel(
-                new CoursesViewModel(dbContextFactory, syncService, logger),
                 new DashboardViewModel(dbContextFactory, aggregationService, settingsService, logger),
-                new SyncViewModel(syncService, dbContextFactory, logger),
-                new SettingsViewModel(settingsService, exportService, schedulerService, logger));
+                new CoursesViewModel(dbContextFactory, syncService, logger));
 
             desktop.MainWindow = new MainWindow { DataContext = mainViewModel };
 

@@ -3,22 +3,24 @@
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
              x:Class="StepikAnalyticsDesktop.Views.DashboardView">
   <ScrollViewer>
-    <StackPanel Margin="16" Spacing="12">
-      <StackPanel Orientation="Horizontal" Spacing="16">
-        <StackPanel Width="320">
-          <TextBlock Text="Курсы" FontWeight="SemiBold" />
-          <ListBox ItemsSource="{Binding Courses}" SelectionMode="Multiple" SelectedItems="{Binding SelectedCourses}" />
+    <StackPanel Margin="16" Spacing="16">
+      <Border Padding="12" CornerRadius="8" BorderThickness="1">
+        <StackPanel Orientation="Horizontal" Spacing="24">
+          <StackPanel Width="320">
+            <TextBlock Text="Курсы" FontWeight="SemiBold" />
+            <ListBox ItemsSource="{Binding Courses}" SelectionMode="Multiple" SelectedItems="{Binding SelectedCourses}" Height="160" />
+          </StackPanel>
+          <StackPanel>
+            <TextBlock Text="Период" FontWeight="SemiBold" />
+            <ComboBox ItemsSource="{Binding Periods}" SelectedItem="{Binding SelectedPeriod}" Width="160" />
+            <TextBlock Text="Дата" Margin="0,12,0,0" FontWeight="SemiBold" />
+            <DatePicker SelectedDate="{Binding SelectedDate}" />
+          </StackPanel>
+          <StackPanel VerticalAlignment="Bottom">
+            <Button Content="Обновить" Command="{Binding RefreshCommand}" />
+          </StackPanel>
         </StackPanel>
-        <StackPanel>
-          <TextBlock Text="Период" FontWeight="SemiBold" />
-          <ComboBox ItemsSource="{Binding Periods}" SelectedItem="{Binding SelectedPeriod}" />
-          <TextBlock Text="Дата" Margin="0,12,0,0" FontWeight="SemiBold" />
-          <DatePicker SelectedDate="{Binding SelectedDate}" />
-        </StackPanel>
-        <StackPanel VerticalAlignment="Bottom">
-          <Button Content="Обновить" Command="{Binding RefreshCommand}" />
-        </StackPanel>
-      </StackPanel>
+      </Border>
 
       <ItemsControl ItemsSource="{Binding MetricCards}">
         <ItemsControl.ItemsPanel>
