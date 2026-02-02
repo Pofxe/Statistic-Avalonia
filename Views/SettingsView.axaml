@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="StepikAnalyticsDesktop.Views.SettingsView">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="12">
+      <TextBlock Text="Авторизация" FontSize="16" FontWeight="SemiBold" />
+      <TextBox Width="420" Watermark="OAuth токен" Text="{Binding ApiToken}" />
+      <Button Content="Сохранить токен" Command="{Binding SaveTokenCommand}" />
+
+      <TextBlock Text="Синхронизация" FontSize="16" FontWeight="SemiBold" Margin="0,16,0,0" />
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <TextBlock Text="Глубина backfill (дней)" VerticalAlignment="Center" />
+        <NumericUpDown Width="120" Minimum="30" Maximum="3650" Value="{Binding BackfillDays}" />
+      </StackPanel>
+      <CheckBox Content="Авто-синк раз в сутки" IsChecked="{Binding AutoSyncEnabled}" />
+
+      <TextBlock Text="Таймзона" FontSize="16" FontWeight="SemiBold" Margin="0,16,0,0" />
+      <ComboBox ItemsSource="{Binding TimeZones}" SelectedItem="{Binding SelectedTimeZone}" Width="320" />
+
+      <TextBlock Text="Экспорт" FontSize="16" FontWeight="SemiBold" Margin="0,16,0,0" />
+      <StackPanel Orientation="Horizontal" Spacing="8">
+        <ComboBox Width="220" ItemsSource="{Binding Courses}" SelectedItem="{Binding SelectedCourse}" />
+        <ComboBox Width="120" ItemsSource="{Binding Periods}" SelectedItem="{Binding ExportPeriod}" />
+        <DatePicker SelectedDate="{Binding ExportDate}" />
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+        <Button Content="Экспорт CSV" Command="{Binding ExportCsvCommand}" />
+        <Button Content="Очистить данные по курсу" Command="{Binding ClearCourseCommand}" />
+      </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
