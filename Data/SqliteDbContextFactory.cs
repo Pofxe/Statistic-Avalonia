@@ -7,7 +7,7 @@ using StepikAnalyticsDesktop.Utils;
 
 namespace StepikAnalyticsDesktop.Data;
 
-public sealed class SqliteDbContextFactory
+public class SqliteDbContextFactory
 {
     private readonly SettingsService _settingsService;
     private readonly UiLogger _logger;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StepikAnalyticsDesktop.Data;
 using StepikAnalyticsDesktop.Domain;
+using StepikAnalyticsDesktop.Utils;
 
 namespace StepikAnalyticsDesktop.Services;
 
