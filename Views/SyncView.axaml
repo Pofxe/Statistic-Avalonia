@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="StepikAnalyticsDesktop.Views.SyncView">
+  <DockPanel Margin="16">
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8">
+      <Button Content="Синхронизировать все" Command="{Binding SyncAllCommand}" />
+      <Button Content="Остановить" Command="{Binding StopCommand}" />
+    </StackPanel>
+
+    <StackPanel Margin="0,16,0,0" Spacing="8">
+      <ProgressBar Minimum="0" Maximum="100" Value="{Binding Progress}" Height="16" />
+      <TextBlock Text="{Binding CurrentCourseStatus}" />
+    </StackPanel>
+
+    <Grid RowDefinitions="Auto,*" Margin="0,16,0,0">
+      <TextBlock Grid.Row="0" Text="Лог" FontWeight="SemiBold" />
+      <ListBox Grid.Row="1" ItemsSource="{Binding LogLines}" Height="200" />
+    </Grid>
+
+    <TextBlock Margin="0,16,0,0" Text="Последние синхронизации" FontWeight="SemiBold" />
+    <DataGrid ItemsSource="{Binding RecentRuns}" AutoGenerateColumns="False" IsReadOnly="True">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Курс" Binding="{Binding CourseId}" />
+        <DataGridTextColumn Header="Старт" Binding="{Binding StartedAt}" />
+        <DataGridTextColumn Header="Финиш" Binding="{Binding FinishedAt}" />
+        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" />
+        <DataGridTextColumn Header="Ошибка" Binding="{Binding ErrorText}" Width="*" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </DockPanel>
+</UserControl>
