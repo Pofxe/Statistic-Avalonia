@@ -76,8 +76,8 @@ public sealed class DashboardViewModel : ViewModelBase
     public ISeries[] ActiveUsersSeries { get; private set; } = Array.Empty<ISeries>();
     public ISeries[] ReviewsDistributionSeries { get; private set; } = Array.Empty<ISeries>();
 
-    public Axis[] TimeAxes { get; private set; } = Array.Empty<Axis>();
-    public Axis[] ReviewsAxes { get; private set; } = Array.Empty<Axis>();
+    public Axis[] TimeAxes { get; private set; } = new[] { new Axis() };
+    public Axis[] ReviewsAxes { get; private set; } = new[] { new Axis() };
     public Axis[] ValueAxes { get; private set; } = new[] { new Axis() };
 
     public string ReviewsAverage { get; private set; } = "недоступно";
