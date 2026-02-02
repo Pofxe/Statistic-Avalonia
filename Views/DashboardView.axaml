@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Avalonia;assembly=LiveChartsCore.SkiaSharpView.Avalonia"
+             x:Class="StepikAnalyticsDesktop.Views.DashboardView">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="12">
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <StackPanel Width="320">
+          <TextBlock Text="Курсы" FontWeight="SemiBold" />
+          <ListBox ItemsSource="{Binding Courses}" SelectionMode="Multiple" SelectedItems="{Binding SelectedCourses}" />
+        </StackPanel>
+        <StackPanel>
+          <TextBlock Text="Период" FontWeight="SemiBold" />
+          <ComboBox ItemsSource="{Binding Periods}" SelectedItem="{Binding SelectedPeriod}" />
+          <TextBlock Text="Дата" Margin="0,12,0,0" FontWeight="SemiBold" />
+          <DatePicker SelectedDate="{Binding SelectedDate}" />
+        </StackPanel>
+        <StackPanel VerticalAlignment="Bottom">
+          <Button Content="Обновить" Command="{Binding RefreshCommand}" />
+        </StackPanel>
+      </StackPanel>
+
+      <ItemsControl ItemsSource="{Binding MetricCards}">
+        <ItemsControl.ItemsPanel>
+          <ItemsPanelTemplate>
+            <WrapPanel ItemWidth="220" ItemHeight="100" />
+          </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Padding="8" BorderThickness="1" CornerRadius="6">
+              <StackPanel>
+                <TextBlock Text="{Binding Title}" />
+                <TextBlock Text="{Binding Value}" FontSize="20" FontWeight="Bold" />
+                <TextBlock Text="{Binding Delta}" Foreground="Gray" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <TextBlock Text="Решения" FontSize="16" FontWeight="SemiBold" />
+      <lvc:CartesianChart Series="{Binding AttemptsSeries}" XAxes="{Binding TimeAxes}" YAxes="{Binding ValueAxes}" Height="240" />
+
+      <TextBlock Text="Новые ученики" FontSize="16" FontWeight="SemiBold" />
+      <lvc:CartesianChart Series="{Binding NewStudentsSeries}" XAxes="{Binding TimeAxes}" YAxes="{Binding ValueAxes}" Height="240" />
+
+      <TextBlock Text="Сертификаты" FontSize="16" FontWeight="SemiBold" />
+      <lvc:CartesianChart Series="{Binding CertificatesSeries}" XAxes="{Binding TimeAxes}" YAxes="{Binding ValueAxes}" Height="240" />
+
+      <TextBlock Text="Рейтинг" FontSize="16" FontWeight="SemiBold" />
+      <lvc:CartesianChart Series="{Binding RatingSeries}" XAxes="{Binding TimeAxes}" YAxes="{Binding ValueAxes}" Height="240" />
+
+      <TextBlock Text="Активные пользователи" FontSize="16" FontWeight="SemiBold" />
+      <lvc:CartesianChart Series="{Binding ActiveUsersSeries}" XAxes="{Binding TimeAxes}" YAxes="{Binding ValueAxes}" Height="240" />
+
+      <TextBlock Text="Отзывы" FontSize="16" FontWeight="SemiBold" />
+      <StackPanel Orientation="Horizontal" Spacing="16">
+        <StackPanel Width="200">
+          <TextBlock Text="Среднее" />
+          <TextBlock Text="{Binding ReviewsAverage}" FontWeight="Bold" />
+          <TextBlock Text="Медиана" Margin="0,8,0,0" />
+          <TextBlock Text="{Binding ReviewsMedian}" FontWeight="Bold" />
+        </StackPanel>
+        <lvc:CartesianChart Series="{Binding ReviewsDistributionSeries}" XAxes="{Binding ReviewsAxes}" YAxes="{Binding ValueAxes}" Height="200" />
+      </StackPanel>
+
+      <Expander Header="Сырые значения" IsExpanded="{Binding ShowRawTable}">
+        <DataGrid ItemsSource="{Binding DailyRows}" AutoGenerateColumns="False" IsReadOnly="True">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Дата" Binding="{Binding Date}" />
+            <DataGridTextColumn Header="Всего" Binding="{Binding TotalAttempts}" />
+            <DataGridTextColumn Header="Правильные" Binding="{Binding CorrectAttempts}" />
+            <DataGridTextColumn Header="Неправильные" Binding="{Binding WrongAttempts}" />
+            <DataGridTextColumn Header="Новые" Binding="{Binding NewStudents}" />
+            <DataGridTextColumn Header="Сертификаты" Binding="{Binding CertificatesIssued}" />
+            <DataGridTextColumn Header="Активные" Binding="{Binding ActiveUsers}" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Expander>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
