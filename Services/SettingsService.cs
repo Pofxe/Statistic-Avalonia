@@ -26,6 +26,26 @@ public sealed class SettingsService
         }
     }
 
+    public string ClientId
+    {
+        get => _settings.ClientId;
+        set
+        {
+            _settings.ClientId = value;
+            Save();
+        }
+    }
+
+    public string ClientSecret
+    {
+        get => _settings.ClientSecret;
+        set
+        {
+            _settings.ClientSecret = value;
+            Save();
+        }
+    }
+
     public int BackfillDays
     {
         get => _settings.BackfillDays;
@@ -107,6 +127,8 @@ public sealed class SettingsService
 public sealed record AppSettings
 {
     public string ApiToken { get; set; } = string.Empty;
+    public string ClientId { get; set; } = string.Empty;
+    public string ClientSecret { get; set; } = string.Empty;
     public int BackfillDays { get; set; } = 365;
     public bool AutoSyncEnabled { get; set; } = true;
     public string TimeZoneId { get; set; } = "Europe/Riga";

@@ -30,7 +30,7 @@ public sealed class App : Application
             var aggregationService = new AggregationService(dbContextFactory, logger);
             var mainViewModel = new MainWindowViewModel(
                 new DashboardViewModel(dbContextFactory, aggregationService, settingsService, logger),
-                new CoursesViewModel(dbContextFactory, syncService, logger));
+                new CoursesViewModel(dbContextFactory, syncService, settingsService, logger));
 
             desktop.MainWindow = new MainWindow { DataContext = mainViewModel };
 

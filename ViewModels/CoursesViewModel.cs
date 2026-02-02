@@ -16,19 +16,33 @@ public sealed class CoursesViewModel : ViewModelBase
 {
     private readonly SqliteDbContextFactory _dbContextFactory;
     private readonly SyncService _syncService;
+    private readonly SettingsService _settingsService;
     private readonly UiLogger _logger;
     private string _courseInput = string.Empty;
+    private string _apiToken = string.Empty;
+    private string _clientId = string.Empty;
+    private string _clientSecret = string.Empty;
 
-    public CoursesViewModel(SqliteDbContextFactory dbContextFactory, SyncService syncService, UiLogger logger)
+    public CoursesViewModel(
+        SqliteDbContextFactory dbContextFactory,
+        SyncService syncService,
+        SettingsService settingsService,
+        UiLogger logger)
     {
         _dbContextFactory = dbContextFactory;
         _syncService = syncService;
+        _settingsService = settingsService;
         _logger = logger;
 
         AddCourseCommand = new AsyncCommand(AddCourseAsync);
         SyncCourseCommand = new AsyncCommand(SyncCourseAsync);
         DeleteCourseCommand = new AsyncCommand(DeleteCourseAsync);
         OpenCourseCommand = new RelayCommand(OpenCourse);
+        SaveAuthCommand = new RelayCommand(_ => SaveAuth());
+
+        ApiToken = settingsService.ApiToken;
+        ClientId = settingsService.ClientId;
+        ClientSecret = settingsService.ClientSecret;
 
         _ = LoadAsync(CancellationToken.None);
     }
@@ -41,10 +55,29 @@ public sealed class CoursesViewModel : ViewModelBase
         set => SetProperty(ref _courseInput, value);
     }
 
+    public string ApiToken
+    {
+        get => _apiToken;
+        set => SetProperty(ref _apiToken, value);
+    }
+
+    public string ClientId
+    {
+        get => _clientId;
+        set => SetProperty(ref _clientId, value);
+    }
+
+    public string ClientSecret
+    {
+        get => _clientSecret;
+        set => SetProperty(ref _clientSecret, value);
+    }
+
     public AsyncCommand AddCourseCommand { get; }
     public AsyncCommand SyncCourseCommand { get; }
     public AsyncCommand DeleteCourseCommand { get; }
     public RelayCommand OpenCourseCommand { get; }
+    public RelayCommand SaveAuthCommand { get; }
 
     private async Task LoadAsync(CancellationToken cancellationToken)
     {
@@ -129,6 +162,14 @@ public sealed class CoursesViewModel : ViewModelBase
         {
             _logger.Info($"Open course URL: {uri}");
         }
+    }
+
+    private void SaveAuth()
+    {
+        _settingsService.ApiToken = ApiToken;
+        _settingsService.ClientId = ClientId;
+        _settingsService.ClientSecret = ClientSecret;
+        _logger.Info("Auth settings saved.");
     }
 
     private CourseRow? _selectedCourse;

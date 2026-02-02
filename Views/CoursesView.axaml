@@ -19,6 +19,21 @@
 
       <Border Padding="12" CornerRadius="8" BorderThickness="1">
         <StackPanel Spacing="8">
+          <TextBlock Text="Авторизация Stepik" FontSize="16" FontWeight="SemiBold" />
+          <TextBlock Text="Введите OAuth токен или Client Credentials для получения доступа." />
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBox Width="260" Watermark="Client ID" Text="{Binding ClientId}" />
+            <PasswordBox Width="260" Watermark="Client Secret" Password="{Binding ClientSecret}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <PasswordBox Width="360" Watermark="OAuth токен" Password="{Binding ApiToken}" />
+            <Button Content="Сохранить" Command="{Binding SaveAuthCommand}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Padding="12" CornerRadius="8" BorderThickness="1">
+        <StackPanel Spacing="8">
           <TextBlock Text="Курсы в базе" FontSize="16" FontWeight="SemiBold" />
           <DataGrid ItemsSource="{Binding Courses}"
                     SelectedItem="{Binding SelectedCourse}"
