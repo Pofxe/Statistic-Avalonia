@@ -11,8 +11,5 @@
     <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
       <views:DashboardView />
     </DataTemplate>
-    <DataTemplate DataType="{x:Type vm:CoursesViewModel}">
-      <views:CoursesView />
-    </DataTemplate>
   </Application.DataTemplates>
 </Application>

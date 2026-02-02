@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using StepikAnalyticsDesktop.Data;
 using StepikAnalyticsDesktop.Services;
+using System.Threading.Tasks;
 using StepikAnalyticsDesktop.Utils;
 using StepikAnalyticsDesktop.ViewModels;
 using StepikAnalyticsDesktop.Views;
@@ -29,14 +30,19 @@ public sealed class App : Application
             var syncService = new SyncService(dbContextFactory, apiClient, settingsService, logger);
             var aggregationService = new AggregationService(dbContextFactory, logger);
             var mainViewModel = new MainWindowViewModel(
-                new DashboardViewModel(dbContextFactory, aggregationService, settingsService, logger),
-                new CoursesViewModel(dbContextFactory, syncService, settingsService, logger));
+                new DashboardViewModel(dbContextFactory, aggregationService, settingsService, logger));
 
             desktop.MainWindow = new MainWindow { DataContext = mainViewModel };
 
-            _ = dbContextFactory.ApplyMigrationsAsync(default);
+            _ = InitializeAsync(dbContextFactory, logger);
         }
 
         base.OnFrameworkInitializationCompleted();
+    }
+
+    private static async Task InitializeAsync(SqliteDbContextFactory dbContextFactory, UiLogger logger)
+    {
+        await dbContextFactory.ApplyMigrationsAsync(default);
+        await CourseSeeder.SeedAsync(dbContextFactory, logger, default);
     }
 }

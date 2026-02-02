@@ -8,13 +8,11 @@ public sealed class MainWindowViewModel : ViewModelBase
     private NavigationSection _selectedSection;
 
     public MainWindowViewModel(
-        DashboardViewModel dashboardViewModel,
-        CoursesViewModel coursesViewModel)
+        DashboardViewModel dashboardViewModel)
     {
         Sections = new ObservableCollection<NavigationSection>
         {
-            new("Статистика", dashboardViewModel),
-            new("Добавление курсов", coursesViewModel)
+            new("Статистика", dashboardViewModel)
         };
         _selectedSection = Sections[0];
     }
