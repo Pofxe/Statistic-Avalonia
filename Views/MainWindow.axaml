@@ -1,0 +1,19 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="StepikAnalyticsDesktop.Views.MainWindow"
+        Title="Stepik Analytics Desktop"
+        Width="1200"
+        Height="800">
+  <TabControl ItemsSource="{Binding Sections}" SelectedItem="{Binding SelectedSection}">
+    <TabControl.ItemTemplate>
+      <DataTemplate>
+        <TextBlock Text="{Binding Title}" />
+      </DataTemplate>
+    </TabControl.ItemTemplate>
+    <TabControl.ContentTemplate>
+      <DataTemplate>
+        <ContentControl Content="{Binding ViewModel}" />
+      </DataTemplate>
+    </TabControl.ContentTemplate>
+  </TabControl>
+</Window>

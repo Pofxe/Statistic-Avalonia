@@ -1,0 +1,18 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:views="clr-namespace:StepikAnalyticsDesktop.Views"
+             xmlns:vm="clr-namespace:StepikAnalyticsDesktop.ViewModels"
+             x:Class="StepikAnalyticsDesktop.App.App">
+  <Application.Styles>
+    <FluentTheme />
+  </Application.Styles>
+
+  <Application.DataTemplates>
+    <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+      <views:DashboardView />
+    </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:CoursesViewModel}">
+      <views:CoursesView />
+    </DataTemplate>
+  </Application.DataTemplates>
+</Application>

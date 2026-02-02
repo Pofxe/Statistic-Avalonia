@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="https://github.com/avaloniaui"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="StepikAnalyticsDesktop.Views.CoursesView">
+  <ScrollViewer>
+    <StackPanel Margin="16" Spacing="16">
+      <Border Padding="12" CornerRadius="8" BorderThickness="1">
+        <StackPanel Spacing="8">
+          <TextBlock Text="Добавление курса" FontSize="16" FontWeight="SemiBold" />
+          <TextBlock Text="Вставьте ссылку на курс Stepik или укажите ID курса." />
+          <StackPanel Orientation="Horizontal" Spacing="8">
+            <TextBox Width="360" Watermark="Ссылка или ID курса" Text="{Binding CourseInput}" />
+            <Button Content="Добавить" Command="{Binding AddCourseCommand}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+      <Border Padding="12" CornerRadius="8" BorderThickness="1">
+        <StackPanel Spacing="8">
+          <TextBlock Text="Курсы в базе" FontSize="16" FontWeight="SemiBold" />
+          <DataGrid ItemsSource="{Binding Courses}"
+                    SelectedItem="{Binding SelectedCourse}"
+                    AutoGenerateColumns="False"
+                    IsReadOnly="True">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="Название" Binding="{Binding Title}" Width="*" />
+              <DataGridTextColumn Header="Course ID" Binding="{Binding CourseId}" Width="120" />
+              <DataGridTextColumn Header="Последняя синхронизация" Binding="{Binding LastSyncAt}" Width="180" />
+              <DataGridTextColumn Header="Статус" Binding="{Binding SyncStatus}" Width="120" />
+              <DataGridTemplateColumn Header="Действия" Width="260">
+                <DataGridTemplateColumn.CellTemplate>
+                  <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                      <Button Content="Открыть" Command="{Binding DataContext.OpenCourseCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                      <Button Content="Синхронизировать" Command="{Binding DataContext.SyncCourseCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                      <Button Content="Удалить" Command="{Binding DataContext.DeleteCourseCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                    </StackPanel>
+                  </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+              </DataGridTemplateColumn>
+            </DataGrid.Columns>
+          </DataGrid>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>
